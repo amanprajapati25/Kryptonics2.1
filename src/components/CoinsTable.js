@@ -30,7 +30,6 @@ export default function CoinsTable() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-
   const { currency, symbol } = CryptoState();
 
   const useStyles = makeStyles({
@@ -193,7 +192,7 @@ export default function CoinsTable() {
 
         {/* Comes from @material-ui/lab */}
         <Pagination
-          count={(handleSearch()?.length / 10).toFixed(0)}
+          count={(handleSearch()?.length / 10).toFixed(2)}
           style={{
             padding: 20,
             width: "100%",

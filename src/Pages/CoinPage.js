@@ -7,6 +7,8 @@ import CoinInfo from "../components/CoinInfo";
 import { SingleCoin } from "../config/api";
 import { numberWithCommas } from "../components/CoinsTable";
 import { CryptoState } from "../CryptoContext";
+import Header from "../components/Header";
+import CoinDetails from "../components/CoinDetails";
 
 const CoinPage = () => {
   const { id } = useParams();
@@ -81,6 +83,8 @@ const CoinPage = () => {
   if (!coin) return <LinearProgress style={{ backgroundColor: "gold" }} />;
 
   return (
+    <div>
+      <Header />
     <div className={classes.container}>
       <div className={classes.sidebar}>
         <img
@@ -98,16 +102,16 @@ const CoinPage = () => {
         <div className={classes.marketData}>
           <span style={{ display: "flex" }}>
             <Typography variant="h5" className={classes.heading}>
-              Rank:
+              Genesis Date: 
             </Typography>
-            &nbsp; &nbsp;
+            &nbsp; &nbsp; 
             <Typography
               variant="h5"
               style={{
                 fontFamily: "Montserrat",
               }}
             >
-              {numberWithCommas(coin?.market_cap_rank)}
+              {(coin?.genesis_date)}
             </Typography>
           </span>
 
@@ -150,9 +154,11 @@ const CoinPage = () => {
           </span>
         </div>
       </div>
-      <CoinInfo coin={coin} />
+      <CoinDetails coin={coin}/>
+      {/* <CoinInfo coin={coin} /> */}
     </div>
-  );
+    </div>
+    );
 };
 
 export default CoinPage;

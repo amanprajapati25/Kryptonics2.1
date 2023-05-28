@@ -1,4 +1,6 @@
+import React from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { HistoricalChart } from "../config/api";
 import { Line } from "react-chartjs-2";
@@ -12,20 +14,23 @@ import SelectButton from "./SelectButton";
 import { chartDays } from "../config/data";
 import { CryptoState } from "../CryptoContext";
 
-const CoinInfo = ({ coin }) => {
+const CoinInfo = () => {
+  const location = useLocation();
+  const coin = location.state?.coin;
+  console.log("Our coin", coin);
   const [historicData, setHistoricData] = useState();
   const [days, setDays] = useState(1);
   const { currency } = CryptoState();
-  const [flag,setflag] = useState(false);
+  const [flag, setflag] = useState(false);
 
   const useStyles = makeStyles((theme) => ({
     container: {
-      width: "75%",
+      width: "95%",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 25,
+      // marginTop: 25,
       padding: 40,
       [theme.breakpoints.down("md")]: {
         width: "100%",
@@ -44,8 +49,6 @@ const CoinInfo = ({ coin }) => {
     setHistoricData(data.prices);
   };
 
-  console.log(coin);
-
   useEffect(() => {
     fetchHistoricData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,7 +66,7 @@ const CoinInfo = ({ coin }) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className={classes.container}>
-        {!historicData | flag===false ? (
+        {!historicData | (flag === false) ? (
           <CircularProgress
             style={{ color: "gold" }}
             size={250}
@@ -109,7 +112,8 @@ const CoinInfo = ({ coin }) => {
               {chartDays.map((day) => (
                 <SelectButton
                   key={day.value}
-                  onClick={() => {setDays(day.value);
+                  onClick={() => {
+                    setDays(day.value);
                     setflag(false);
                   }}
                   selected={day.value === days}

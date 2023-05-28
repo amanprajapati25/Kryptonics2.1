@@ -45,11 +45,11 @@ function Header() {
         <Container>
           <Toolbar>
             <Typography
-              onClick={() => history.push(`/`)}
+              onClick={() => history.push(`/Homepage`)}
               variant="h6"
               className={classes.title}
             >
-              Crypto Hunter
+              Kryptonics
             </Typography>
             {/* <Button color="inherit">Login</Button> */}
             <Select
